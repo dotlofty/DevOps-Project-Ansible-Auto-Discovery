@@ -198,7 +198,7 @@ module "Stage_ASG" {
   albtg-arn = module.ALB.alb-TG
   ASG-sg = module.sg.docker-sg-id
   key_pair = module.key_pair.key_pair_name
-  LCami = module.ASG.asg
+  Stage_asg_EC2 = module.Docker[1].id
 }
 
 module "AWS_ACM" {

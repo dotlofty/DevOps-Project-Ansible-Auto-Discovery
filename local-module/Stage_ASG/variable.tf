@@ -1,5 +1,5 @@
 variable "name" {
-  default = "dummy"
+  default = "dotun"
 }
 
 variable "vpc-subnet1" {
@@ -26,6 +26,6 @@ variable "key_pair" {
   default = "dummy"
 }
 
-variable "LCami" {
+variable "Stage_asg_EC2" {
   default = "dummy"
 }

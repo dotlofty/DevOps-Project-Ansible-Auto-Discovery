@@ -34,10 +34,16 @@ target_tracking_configuration {
 #create ASG Launch Config
 resource "aws_launch_configuration" "dotun_launch_config_QA" {
   name          = "${var.name}-Stage_LaunchConfig"
-  image_id      = var.LCami
+  image_id      = aws_ami_from_instance.docker_ami_LC_QA.id
   instance_type = var.LC-InstanceType
   associate_public_ip_address = true
   security_groups = [var.ASG-sg]
   key_name = var.key_pair
   user_data = file("./local-module/Stage_ASG/docker.sh")
+}
+
+#create AMI from Instance
+resource "aws_ami_from_instance" "docker_ami_LC_QA" {
+  name               = "${var.name}-Stage_docker_ami_LC"
+  source_instance_id = var.Stage_asg_EC2
 }

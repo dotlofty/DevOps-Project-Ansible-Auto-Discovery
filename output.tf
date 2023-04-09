@@ -37,3 +37,7 @@ output "Stage_alb-DNS" {
 output "Nameservers" {
   value = module.Route53.nameservers
 }
+
+output "ContinuousTest-ip" {
+  value = module.testingEC2.private_ip
+}
