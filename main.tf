@@ -93,13 +93,12 @@ module "Docker" {
   key_name               = module.key_pair.key_pair_name
   vpc_security_group_ids = [module.sg.docker-sg-id]
   subnet_id              = module.vpc.private_subnets[0]
-  count                  = 3
   user_data              = file("./User_data/docker.sh")
 
   tags = {
     Terraform   = "true"
     Environment = "dev"
-    Name        = "${var.docker_name}${count.index}"
+    Name        = var.docker_name
   }
 }
 
@@ -169,7 +168,7 @@ module "ALB" {
   ALB-subnet1 = module.vpc.public_subnets[0]
   ALB-subnet2 = module.vpc.public_subnets[1]
   vpc_name = module.vpc.vpc_id
-  Target_EC2 = module.Docker[1].id
+  Target_EC2 = module.Docker.id
 }
 
 module "Stage_ALB" {
@@ -178,7 +177,7 @@ module "Stage_ALB" {
   ALB-subnet1 = module.vpc.public_subnets[0]
   ALB-subnet2 = module.vpc.public_subnets[1]
   vpc_name = module.vpc.vpc_id
-  Target_EC2 = module.Docker[1].id
+  Target_EC2 = module.Docker.id
 }
 
 module "ASG" {
@@ -188,7 +187,7 @@ module "ASG" {
   albtg-arn = module.ALB.alb-TG
   ASG-sg = module.sg.docker-sg-id
   key_pair = module.key_pair.key_pair_name
-  asg_EC2 = module.Docker[2].id
+  asg_EC2 = module.Docker.id
 }
 
 module "Stage_ASG" {
@@ -198,7 +197,7 @@ module "Stage_ASG" {
   albtg-arn = module.ALB.alb-TG
   ASG-sg = module.sg.docker-sg-id
   key_pair = module.key_pair.key_pair_name
-  Stage_asg_EC2 = module.Docker[1].id
+  Stage_asg_EC2 = module.Docker.id
 }
 
 module "AWS_ACM" {

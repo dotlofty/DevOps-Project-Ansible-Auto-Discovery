@@ -7,7 +7,7 @@ output "Bastion_ip" {
 }
 
 output "Docker_ip" {
-  value = module.Docker.*.private_ip
+  value = module.Docker.private_ip
 }
 
 output "Ansible_ip" {
