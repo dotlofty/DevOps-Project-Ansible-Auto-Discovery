@@ -1,5 +1,5 @@
 variable "name" {
-  default = "dummy"
+  default = "dotun"
 }
 
 variable "vpc-subnet1" {
